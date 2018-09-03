@@ -99,3 +99,6 @@ set hlsearch
 au WinLeave * set nocursorline nocursorcolumn
 au WinEnter * set cursorline cursorcolumn
 set cursorline cursorcolumn
+
+" json格式化
+map <F5> :%!python -m json.tool <CR>
