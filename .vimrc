@@ -82,7 +82,7 @@ set noexpandtab
 "set shiftround
 
 " Display extra whitespace
-set list listchars=tab:»·,trail:·
+"set list listchars=tab:»·,trail:·
 
 " Make it obvious where 80 characters is
 "set textwidth=80
@@ -101,4 +101,4 @@ au WinEnter * set cursorline cursorcolumn
 set cursorline cursorcolumn
 
 " json格式化
-map <F5> :%!python -m json.tool <CR>
+map <F5> :%!python3 -m json.tool <CR>
