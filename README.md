@@ -1,7 +1,7 @@
 # Vim
 Configuration of Vim.
 
-    cp Vim/.vimrc ~/
+    make
     
 # bundle
     mkdir -p ~/.vim/bundle
