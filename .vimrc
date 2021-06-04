@@ -15,8 +15,11 @@ Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'Lokaltog/vim-powerline'
 Plugin 'tpope/vim-fugitive'
 Plugin 'altercation/vim-colors-solarized'
-Plugin 'tomasr/molokai'
 Plugin 'scrooloose/syntastic'
+Plugin 'vim-airline/vim-airline'
+Plugin 'vim-airline/vim-airline-themes'
+Plugin 'NLKNguyen/papercolor-theme'
+Plugin 'hdima/python-syntax'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -46,10 +49,17 @@ let g:Powerline_symbols = 'fancy'
 
 "scheme
 syntax enable
-set background=dark
-colorscheme molokai
-let g:molokai_original = 1
-let g:rehash256 = 1
+set background=light
+let g:PaperColor_Theme_Options = {
+  \   'theme': {
+  \     'default': {
+  \       'transparent_background': 0
+  \     }
+  \   }
+  \ }
+colorscheme PaperColor
+"let g:molokai_original = 1
+"let g:rehash256 = 1
 
 "syntastic
 "let g:syntastic_check_on_open=1
@@ -82,7 +92,7 @@ set noexpandtab
 "set shiftround
 
 " Display extra whitespace
-"set list listchars=tab:»·,trail:·
+set list listchars=tab:»·,trail:·
 
 " Make it obvious where 80 characters is
 "set textwidth=80
@@ -102,3 +112,9 @@ set cursorline cursorcolumn
 
 " json格式化
 map <F5> :%!python3 -m json.tool <CR>
+
+" Airline
+let g:airline_theme='silver'
+
+" python3
+let g:syntastic_python_checkers=['python3.8']
