@@ -1,5 +1,9 @@
 set nocompatible              " be iMproved, required
 filetype off                  " required
+scriptencoding utf-8
+set encoding=utf-8
+
+"execute pathogen#infect()
 
 " set the runtime path to include Vundle and initialize
 set rtp+=~/.vim/bundle/Vundle.vim
@@ -15,11 +19,15 @@ Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'Lokaltog/vim-powerline'
 Plugin 'tpope/vim-fugitive'
 Plugin 'altercation/vim-colors-solarized'
-Plugin 'scrooloose/syntastic'
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
 Plugin 'NLKNguyen/papercolor-theme'
 Plugin 'hdima/python-syntax'
+Plugin 'nvie/vim-flake8'
+Plugin 'Badacadabra/vim-archery'
+Plugin 'cocopon/iceberg.vim'
+Plugin 'zivyangll/git-blame.vim'
+Plugin 'dense-analysis/ale'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -27,7 +35,7 @@ filetype plugin indent on    " required
 
 "nerdtree
 "autocmd vimenter * NERDTree
-autocmd StdinReadPre * let s:std_in=1
+"aucolorscheme PaperColortocmd StdinReadPre * let s:std_in=1
 autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
 let NERDTreeWinSize=25
 map <F3> :NERDTreeMirror<CR>
@@ -49,27 +57,24 @@ let g:Powerline_symbols = 'fancy'
 
 "scheme
 syntax enable
-set background=light
-let g:PaperColor_Theme_Options = {
-  \   'theme': {
-  \     'default': {
-  \       'transparent_background': 0
-  \     }
-  \   }
-  \ }
-colorscheme PaperColor
+set background=dark
+"let g:PaperColor_Theme_Options = {
+"  \   'theme': {
+"  \     'default.dark': {
+"  \       'transparent_background': 0
+"  \     }
+"  \   }
+"  \ }
+"colorscheme PaperColor
+colorscheme Iceberg
+set termguicolors
+set showtabline=2
+set laststatus=2
 "let g:molokai_original = 1
 "let g:rehash256 = 1
-
-"syntastic
-"let g:syntastic_check_on_open=1
-"let g:syntastic_html_tidy_ignore_errors=[" proprietary attribute \"ng-"]
-"let g:syntastic_always_populate_loc_list = 1
-"let g:syntastic_auto_loc_list = 1
-"let g:syntastic_check_on_wq = 0
-"set statusline+=%#warningmsg#
-"set statusline+=%{SyntasticStatuslineFlag()}
-"set statusline+=%*
+" Airline
+"let g:airline_theme='silver'
+"let g:airline_theme = 'archery'
 
 " Backspace deletes like most programs in insert mode
 "set backspace=2
@@ -80,14 +85,12 @@ set showcmd
 " Set fileencodings
 set fileencodings=utf-8,bg18030,gbk,big5
 
-
-filetype plugin indent on
-
 " Softtabs, 2 spaces
 set tabstop=4
 set shiftwidth=4
 set softtabstop=4
-set noexpandtab
+set expandtab
+set smartindent
 "set autoindent
 "set shiftround
 
@@ -95,8 +98,8 @@ set noexpandtab
 set list listchars=tab:»·,trail:·
 
 " Make it obvious where 80 characters is
-"set textwidth=80
-"set colorcolumn=+1
+"set textwidth=79
+set colorcolumn=+1
 
 " Numbers
 set number
@@ -111,10 +114,22 @@ au WinEnter * set cursorline cursorcolumn
 set cursorline cursorcolumn
 
 " json格式化
-map <F5> :%!python3 -m json.tool <CR>
-
-" Airline
-let g:airline_theme='silver'
+map <F5> :%!python3 -m json.tool --no-ensure-ascii <CR>
 
 " python3
 let g:syntastic_python_checkers=['python3.8']
+let python_highlight_all=1
+syntax on
+
+" copy
+vmap <F8> "*y <CR>
+map <F9> "*p <CR>
+
+" pdb
+let @p = 'oimport pdb;pdb.set_trace()??a'
+
+" git blame
+"nnoremap <Leader>s :<C-u>call gitblame#echo()<CR>
+
+" Only run linters named in ale_linters settings.
+let g:ale_linters_explicit = 1
